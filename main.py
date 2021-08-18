@@ -35,7 +35,7 @@ def home():
             connection.sendmail(
                 from_addr=EMAIL,
                 to_addrs=EMAIL,
-                msg=f"New Form Response \n\n\n"
+                msg=f"Subject: New Form Response \n\n"
                     f"Person's name: {form.name.data}"
                     f"Person's email: {form.email.data}"
                     f"Subject: {form.subject.data}"
