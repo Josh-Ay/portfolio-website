@@ -609,6 +609,11 @@ section .container {
     left: 50%;
     transform: translateX(-50%);
 }
+@media (max-width: 576px){
+    #success_message{
+        font-size: .8em;
+    }
+}
 
 
 @-webkit-keyframes animate-loading {
