@@ -5,7 +5,6 @@ from wtforms.validators import DataRequired, Email
 from dotenv import load_dotenv
 from os import environ
 from flask_bootstrap import Bootstrap
-import time
 
 load_dotenv()
 
