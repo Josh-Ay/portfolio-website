@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired, Email
 from dotenv import load_dotenv
 from os import environ
 from flask_bootstrap import Bootstrap
+import smtplib
 
 load_dotenv()
 
@@ -12,10 +13,14 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = environ.get("SECRET_KEY")
 Bootstrap(app)
 
+EMAIL = environ.get("USER_EMAIL")
+PASSWORD = environ.get("PASSWORD")
+
 
 class CommentForm(FlaskForm):
     name = StringField(validators=[DataRequired()], render_kw={"placeholder": "Your name"})
-    email = StringField(validators=[DataRequired(), Email(message="The email you entered was not valid")], render_kw={"placeholder": "Your Email"})
+    email = StringField(validators=[DataRequired(), Email(message="The email you entered was not valid")],
+                        render_kw={"placeholder": "Your Email"})
     subject = StringField(render_kw={"placeholder": "Subject"})
     message = StringField(validators=[DataRequired()], render_kw={"placeholder": "Your message"})
     submit_btn = SubmitField("Send message")
@@ -25,6 +30,17 @@ class CommentForm(FlaskForm):
 def home():
     form = CommentForm()
     if form.validate_on_submit():
+        with smtplib.SMTP_SSL("smtp.gmail.com") as connection:
+            connection.login(user=EMAIL, password=PASSWORD)
+            connection.sendmail(
+                from_addr=EMAIL,
+                to_addrs=EMAIL,
+                msg=f"New Form Response \n\n\n"
+                    f"Person's name: {form.name.data}"
+                    f"Person's email: {form.email.data}"
+                    f"Subject: {form.subject.data}"
+                    f"Message: {form.message.data}"
+            )
         flash("Successfully sent message!")
         return redirect(url_for("home"))
 
