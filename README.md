@@ -15,7 +15,10 @@ The 'hello.py' file.
 
 
 # Second Solution: Resume
+
 ![](./static/assets/img/screenshot.png)
+
+## Features:
 - Built using flask and a free [bootstrap](https://bootstrapmade.com/) template.
 - A flask-wtf contact form with some validation.
 - Deployed [here](https://ayoola-portfolio.herokuapp.com/) using [Heroku](https://www.heroku.com).
