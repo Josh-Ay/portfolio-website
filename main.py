@@ -30,15 +30,15 @@ class CommentForm(FlaskForm):
 def home():
     form = CommentForm()
     if form.validate_on_submit():
-        with smtplib.SMTP_SSL("smtp.gmail.com") as connection:
+        with smtplib.SMTP_SSL("smtp.gmail.com", port=465) as connection:
             connection.login(user=EMAIL, password=PASSWORD)
             connection.sendmail(
                 from_addr=EMAIL,
                 to_addrs=EMAIL,
                 msg=f"Subject: New Form Response \n\n"
-                    f"Person's name: {form.name.data}"
-                    f"Person's email: {form.email.data}"
-                    f"Subject: {form.subject.data}"
+                    f"Person's name: {form.name.data}\n"
+                    f"Person's email: {form.email.data}\n"
+                    f"Subject: {form.subject.data}\n"
                     f"Message: {form.message.data}"
             )
         flash("Successfully sent message!")
